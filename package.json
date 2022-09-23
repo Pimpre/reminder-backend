@@ -4,6 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "build:watch": "npm run build -- --watch",
+    "start": "node dist/main/server.js",
+    "dev": "nodemon -L --watch ./dist ./dist/main/server.js",
+    "start:dev": "concurrently --kill-others-on-fail \"npm run build:watch\" \"npm run dev\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
@@ -20,6 +25,20 @@
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
-    "husky": "^8.0.0"
+    "@types/node": "^18.7.18",
+    "concurrently": "^7.4.0",
+    "husky": "^8.0.0",
+    "nodemon": "^2.0.20",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "module-alias": "^2.2.2"
+  },
+  "_moduleAliases": {
+    "@domain": "dist/domain",
+    "@application": "dist/application",
+    "@infrastructure": "dist/infrastructure",
+    "@main": "dist/main"
   }
 }
